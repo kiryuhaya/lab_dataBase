@@ -10,6 +10,13 @@ class ExcelDatabase:
         self.file_name = file_name
         self.key_index = {}
         self.sorted_keys = []
+        if not os.path.exists(file_name):
+            # Создаем файл, если он не существует
+            wb = openpyxl.Workbook()
+            ws = wb.active
+            ws.append(["ID", "Name", "Author", "Cost"])  # Заголовки столбцов
+            wb.save(file_name)
+            wb.close()
         self.build_index()
 
     #постройка идексов для быстрого поиска по id
